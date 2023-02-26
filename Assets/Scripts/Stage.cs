@@ -33,7 +33,6 @@ public class Stage : MonoBehaviour
     {
 
     }
-    #region collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.gameObject.CompareTag("Character") == true)
@@ -46,9 +45,6 @@ public class Stage : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region spawn brick
     void SpawnBrickOnStage()
     {
         for (int i = 0; i < amountX; i++)
@@ -56,7 +52,7 @@ public class Stage : MonoBehaviour
             for (int j = 0; j < amountZ; j++)
             {
                 Vector3 pos = new(startPos.x + i * distance, startPos.y + brickfloat, startPos.z + j * distance);
-                GameObject obj = BrickSpawner.Instance.SpawnBrick(transform) as GameObject;
+                GameObject obj = BrickSpawner.spawnerinstance.BricktoSpawn(transform) as GameObject;
                 obj.transform.position = pos;
                 obj.transform.rotation = Quaternion.Euler(0, 0, 90);
                 brickoffstage.Add(obj);
@@ -86,14 +82,13 @@ public class Stage : MonoBehaviour
         }
         
     }
-    #endregion
     void RespawnBrick()
     {
         if (respawnPos.Count > 0)
         {
             for (int i = 0; i < respawnPos.Count; i++)
             {
-                GameObject brick = BrickSpawner.Instance.SpawnBrick(transform) as GameObject;
+                GameObject brick = BrickSpawner.spawnerinstance.BricktoSpawn(transform) as GameObject;
                 brick.transform.position = respawnPos[i];
                 brick.transform.rotation = Quaternion.Euler(0, 0, 90);
                 brickoffstage.Add(brick);
@@ -105,6 +100,4 @@ public class Stage : MonoBehaviour
             respawnPos.Clear();
         }
     }
-
-    
 }

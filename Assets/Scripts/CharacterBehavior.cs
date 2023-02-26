@@ -40,7 +40,7 @@ public class CharacterBehavior : MonoBehaviour
             currentlyonbridge = collision.gameObject;
 
         }
-        else if (collision.gameObject.CompareTag("Block") == true && isBot == true)
+        else if(collision.gameObject.CompareTag("Block")==true && isBot == true)
         {
             GetComponent<AIController>().FindBrickPos();
             GetComponent<AIController>().GetBrick();
@@ -50,8 +50,6 @@ public class CharacterBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-
         if (other.gameObject.CompareTag("Brick") == true)
         {
             if (other.gameObject.GetComponent<BrickBehavior>().brickteam == playerteam)
@@ -59,19 +57,16 @@ public class CharacterBehavior : MonoBehaviour
                 if (isBot == true)
                 {
                     GetComponent<AIController>().brickPos.Remove(other.transform.position);
-                    GetComponent<AIController>().FindBrickPos();
                     GetComponent<AIController>().GetBrick();
                 }
-                else
-                {
-                    currentlyonstage.GetComponent<Stage>().respawnPos.Add(new Vector3(other.transform.position.x, 1.3f, other.transform.position.z));
-                    currentlyonstage.GetComponent<Stage>().brickonstage.Remove(other.gameObject);
-                    Backpack.Add(other.gameObject);
-                    other.transform.SetParent(transform);
-                    other.transform.localRotation = Quaternion.Euler(0, 0, 90);
-                    other.transform.localPosition = new(0, Backpack.Count * distance / 2, -distance);
-                    other.GetComponent<Collider>().enabled = false;
-                }
+                
+                currentlyonstage.GetComponent<Stage>().respawnPos.Add(new Vector3(other.transform.position.x, 1.3f, other.transform.position.z));
+                currentlyonstage.GetComponent<Stage>().brickonstage.Remove(other.gameObject);
+                Backpack.Add(other.gameObject);
+                other.transform.SetParent(transform);
+                other.transform.localRotation = Quaternion.Euler(0, 0, 90);
+                other.transform.localPosition = new(0, Backpack.Count * distance / 2, -distance);
+                other.GetComponent<Collider>().enabled = false;
 
             }
         }
@@ -96,7 +91,7 @@ public class CharacterBehavior : MonoBehaviour
                         brickinbp.GetComponent<Collider>().enabled = true;
                         brickinbp.transform.parent = null;
                         Backpack.RemoveAt(Backpack.Count - 1);
-                        BrickSpawner.Instance.brickpool.Add(brickinbp);
+                        BrickSpawner.spawnerinstance.Brickpool.Add(brickinbp);
                         brickinbp.SetActive(false);
                         //remove gach tro ve spawner
                         currentlyonbridge.GetComponent<Bridge>().NewStep(currentstepindex, playerteam);

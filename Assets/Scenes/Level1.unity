@@ -107,9 +107,9 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.03
-    agentHeight: 2
-    agentSlope: 0
-    agentClimb: 0.4
+    agentHeight: 0.44
+    agentSlope: 35.9
+    agentClimb: 0.12
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -1960,6 +1960,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2016620980210116397, guid: a4cf7e2f3675cbb46b2fd2c0f5669036, type: 3}
+      propertyPath: isBot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2016620980210116399, guid: a4cf7e2f3675cbb46b2fd2c0f5669036, type: 3}
       propertyPath: m_WarningMessage
       value: 
@@ -2021,6 +2025,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 651462122269184860, guid: 26dae63ada6c17440a56603d3a41aae4, type: 3}
+      propertyPath: isBot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 651462122269184862, guid: 26dae63ada6c17440a56603d3a41aae4, type: 3}
       propertyPath: m_WarningMessage
       value: 
@@ -2082,6 +2090,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3976611799832692281, guid: 8106ea6246145b1458386dc5cba6a4db, type: 3}
+      propertyPath: isBot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3976611799832692283, guid: 8106ea6246145b1458386dc5cba6a4db, type: 3}
       propertyPath: m_WarningMessage
       value: 
