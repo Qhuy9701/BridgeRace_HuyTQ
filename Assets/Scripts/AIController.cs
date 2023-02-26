@@ -4,14 +4,15 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    public List<Vector3> brickPos = new List<Vector3>();
-    public NavMeshAgent agent;
-    public int onstage = 0;
-    GameObject nextStage;
-    GameObject currentStage;
-    Vector3 nextStagePos;
-    int playerteam;
-    public int bricktocollect = 0;
+    public List<Vector3> brickPos = new List<Vector3>(); // Danh sách vị trí gạch cần thu thập
+    public NavMeshAgent agent; // Đối tượng NavMeshAgent để di chuyển
+    public int onstage = 0; // Số sân khởi đầu
+    GameObject nextStage; // Sân tiếp theo để di chuyển tới
+    GameObject currentStage; // Sân hiện tại
+    Vector3 nextStagePos; // Vị trí của sân tiếp theo
+    int playerteam; // Đội của người chơi
+    public int bricktocollect = 0; // Số gạch còn lại cần thu thập
+
     void Start()
     {
         playerteam = GetComponent<CharacterBehavior>().playerteam;
@@ -23,14 +24,7 @@ public class AIController : MonoBehaviour
         GetBrick();
     }
 
-    // Update is called once per frame
-
-    void Update()
-    {
-        
-    }
-    
-
+    // Hàm tìm vị trí của gạch cùng màu
     public bool FindBrick()
     {
         brickPos.Clear();
@@ -45,24 +39,56 @@ public class AIController : MonoBehaviour
                 brickPos.Add(brickpos);
             }
         }
-        if (brickPos.Count > 0) return true;
-        else return false;
+        if (brickPos.Count > 0) return true; // Nếu có gạch cùng màu thì trả về true
+        else return false; // Ngược lại trả về false
     }
+
+    // Hàm di chuyển đến vị trí của gạch cùng màu gần nhất
     public void GetBrick()
     {
-        if (brickPos.Count>0)
+        if (brickPos.Count > 0)
         {
             int count = brickPos.Count - 1;
-            agent.SetDestination(brickPos[count]);  
+            agent.SetDestination(brickPos[count]);
         }
-        else GotoNextStage();
+        else GotoNextStage(); // Nếu không còn gạch cùng màu thì di chuyển đến sân tiếp theo
     }
 
-
+    // Hàm di chuyển đến sân tiếp theo
     void GotoNextStage()
     {
         agent.SetDestination(nextStagePos);
-        bricktocollect = 0;
+        bricktocollect = 0; // Đặt lại số gạch còn lại cần thu thập về 0
     }
-    
+
+    // Hàm cập nhật mỗi frame
+    void Update()
+    {
+        // Nếu đang ở trạng thái di chuyển và NavMeshAgent đã đến vị trí đích
+        if (agent.pathPending == false && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (brickPos.Count > 0)
+            {
+                // đến được vị trí gạch, lấy gạch
+                brickPos.RemoveAt(brickPos.Count - 1);
+                bricktocollect++;
+                // kiểm tra nếu đã lấy đủ số lượng gạch, thì đi đến stage kế tiếp
+                if (bricktocollect >= 3)
+                {
+                    GotoNextStage();
+                }
+                else
+                {
+                    // chưa lấy đủ số lượng gạch, tìm gạch tiếp theo
+                    GetBrick();
+                }
+            }
+            else
+            {
+                // không tìm thấy gạch nữa, đi đến stage kế tiếp
+                GotoNextStage();
+            }
+        }
+    }
 }
+
