@@ -4,47 +4,45 @@ using UnityEngine;
 public class BrickSpawner : MonoBehaviour
 {
     public GameObject prefab;
-    public static BrickSpawner spawnerinstance;
-    public List<GameObject> Brickpool;
+    public static BrickSpawner Instance;
+    public List<GameObject> brickpool;
     [SerializeField] private int poolsize = 100;
     [SerializeField] private Material[] brickMats = new Material[4];
-    private void Awake()
+private void Awake()
+{
+    if (Instance == null)
     {
-        spawnerinstance = this;
-        Brickpool = new List<GameObject>();
-        for (int i = 0; i < poolsize; i++)
-        {
-            GameObject gameobj = Instantiate(prefab);
-            gameobj.transform.parent = transform;
-            int rand = Random.Range(0, 4);
-            gameobj.GetComponent<BrickBehavior>().brickteam = rand;
-            gameobj.GetComponent<MeshRenderer>().material = brickMats[rand];
-            gameobj.SetActive(false);
-            Brickpool.Add(gameobj);
-        }
+        Instance = this;
     }
-    void Start()
+    else
     {
-
+        Destroy(gameObject);
+        return;
     }
 
-    // Update is called once per frame
-    void Update()
+    for (int i = 0; i < poolsize; i++)
     {
+        GameObject gameobj = Instantiate(prefab, transform);
+        int rand = Random.Range(0, brickMats.Length);
+        gameobj.GetComponent<BrickBehavior>().brickteam = rand;
+        gameobj.GetComponent<MeshRenderer>().material = brickMats[rand];
+        gameobj.SetActive(false);
+        brickpool.Add(gameobj);
+    }
+}
 
+public GameObject SpawnBrick(Transform parentTransform)
+{
+    if (brickpool.Count == 0)
+    {
+        return null;
     }
 
-    public GameObject BricktoSpawn(Transform transform)
-    {
-        if (Brickpool.Count > 0)
-        {
-            GameObject lastbrick = Brickpool[Brickpool.Count - 1];
-            Brickpool.RemoveAt(Brickpool.Count - 1);
-            lastbrick.transform.SetParent(transform);
-            return lastbrick;
-        }
-        else return null;
-    }
+    GameObject lastBrick = brickpool[brickpool.Count - 1];
+    brickpool.RemoveAt(brickpool.Count - 1);
+    lastBrick.transform.SetParent(parentTransform);
+    lastBrick.SetActive(true);
 
-
+    return lastBrick;
+}
 }

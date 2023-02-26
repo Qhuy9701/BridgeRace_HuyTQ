@@ -17,7 +17,7 @@ public class CharacterBehavior : MonoBehaviour
     void Start()
     {
         isBot = this.TryGetComponent(out NavMeshAgent agent);
-
+        isBot = this.TryGetComponent(out AIController ai);
     }
 
     // Update is called once per frame
@@ -96,7 +96,7 @@ public class CharacterBehavior : MonoBehaviour
                         brickinbp.GetComponent<Collider>().enabled = true;
                         brickinbp.transform.parent = null;
                         Backpack.RemoveAt(Backpack.Count - 1);
-                        BrickSpawner.spawnerinstance.Brickpool.Add(brickinbp);
+                        BrickSpawner.Instance.brickpool.Add(brickinbp);
                         brickinbp.SetActive(false);
                         //remove gach tro ve spawner
                         currentlyonbridge.GetComponent<Bridge>().NewStep(currentstepindex, playerteam);
