@@ -7,7 +7,7 @@ public class BrickSpawner : MonoBehaviour
     public static BrickSpawner Instance;
     public List<GameObject> brickpool;
     [SerializeField] private int poolsize = 100;
-    [SerializeField] private Material[] brickMats = new Material[4];
+    [SerializeField] private Material[] brickMats = new Material[3];
 private void Awake()
 {
     if (Instance == null)
