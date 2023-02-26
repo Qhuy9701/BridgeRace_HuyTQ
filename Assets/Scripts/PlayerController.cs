@@ -1,63 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Camera _camera;
-    private Rigidbody thisbody;
-    [SerializeField] private GameObject model;
-    private float leftright;
-    private float updown;
-    private float speed = 5f;
-    public static PlayerController instance;
-    private Vector3 camoffset;
-    private Animator thisanimator;
-    private bool isRunning = false;
-    Ray testray;
-    private void Awake()
-    {
-        instance = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        thisbody = GetComponent<Rigidbody>();
-        _camera = Camera.main;
-        camoffset = Camera.main.transform.position - transform.position;
-        thisanimator = GetComponent<Animator>();
-    }
-
-    // Update is called once per frame
+    [SerializeField] private FixedJoystick joyStick;
+    [SerializeField] private float speed = 5f;
     void Update()
-    {   
-        leftright = Input.GetAxis("Horizontal");
-        updown = Input.GetAxis("Vertical");
-        if (updown != 0 || leftright != 0)
-        {
-            thisbody.rotation = Quaternion.LookRotation(new Vector3(leftright, 0, updown), Vector3.up);
-            thisbody.velocity = new(leftright * speed, 0, updown * speed);
-            isRunning = true;
-            thisanimator.SetBool("isRunning", isRunning);
-            // animation run
-        }
-        else
-        {
-            //animation stop running
-            isRunning = false;
-            thisanimator.SetBool("isRunning", isRunning);
-        }
+    {
+        Move();
+    }
 
-    }
-    
-    private void LateUpdate()
+    private void Move()
     {
-        testray = new Ray(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), thisbody.velocity*5);
-        
-        _camera.transform.position = transform.position + camoffset;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawRay(testray);
+        Vector2 input = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+
+        Vector3 dirMovement = new Vector3(input.x, 0f, input.y);
+        Vector3 moveDestination = transform.position + (dirMovement * speed * Time.deltaTime);
+        transform.position = moveDestination;
+        if (input.sqrMagnitude > 0.1f)
+        {
+            transform.rotation = Quaternion.LookRotation(new Vector3(input.x, 0, input.y));
+        }
     }
 }

@@ -42,7 +42,7 @@ public class CharacterBehavior : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Block")==true && isBot == true)
         {
-            GetComponent<AIController>().FindBrick();
+            GetComponent<AIController>().FindBrickPos();
             GetComponent<AIController>().GetBrick();
         }
 
@@ -57,6 +57,8 @@ public class CharacterBehavior : MonoBehaviour
                 if (isBot == true)
                 {
                     GetComponent<AIController>().brickPos.Remove(other.transform.position);
+                    //check null
+                    GetComponent<AIController>().FindBrickPos();
                     GetComponent<AIController>().GetBrick();
                 }
 
@@ -104,7 +106,7 @@ public class CharacterBehavior : MonoBehaviour
                         islimited = true;
                         if (isBot == true)
                         {
-                            GetComponent<AIController>().FindBrick();
+                            GetComponent<AIController>().FindBrickPos();
                             GetComponent<AIController>().GetBrick();
                         }
                     }

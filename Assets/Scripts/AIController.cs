@@ -20,12 +20,12 @@ public class AIController : MonoBehaviour
         nextStage = GameManage.GMinstance.Stage[onstage + 1];
         agent = GetComponent<NavMeshAgent>();
         nextStagePos = nextStage.transform.position;
-        FindBrick();
+        FindBrickPos();
         GetBrick();
     }
 
     // Hàm tìm vị trí của gạch cùng màu
-    public bool FindBrick()
+    public bool FindBrickPos()
     {
         brickPos.Clear();
         int brickamount = currentStage.GetComponent<Stage>().brickonstage.Count;

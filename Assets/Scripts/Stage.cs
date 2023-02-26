@@ -33,7 +33,6 @@ public class Stage : MonoBehaviour
     {
 
     }
-    #region collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.gameObject.CompareTag("Character") == true)
@@ -46,9 +45,6 @@ public class Stage : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region spawn brick
     void SpawnBrickOnStage()
     {
         for (int i = 0; i < amountX; i++)
@@ -86,7 +82,6 @@ public class Stage : MonoBehaviour
         }
         
     }
-    #endregion
     void RespawnBrick()
     {
         if (respawnPos.Count > 0)
@@ -105,6 +100,4 @@ public class Stage : MonoBehaviour
             respawnPos.Clear();
         }
     }
-
-    
 }
