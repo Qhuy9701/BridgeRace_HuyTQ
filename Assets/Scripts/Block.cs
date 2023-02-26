@@ -11,6 +11,7 @@ public class Block : MonoBehaviour
             GetComponent<Renderer>().enabled = true;
             if (other.gameObject.TryGetComponent(out NavMeshAgent agent) == true)
             {
+                
                 other.gameObject.GetComponent<AIController>().onstage++;
             }
         }
