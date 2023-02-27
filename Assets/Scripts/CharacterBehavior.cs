@@ -50,6 +50,11 @@ public class CharacterBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other != null && other.gameObject.CompareTag("Brick") == true)
+        {
+            
+        }
+
         if (other.gameObject.CompareTag("Brick") == true)
         {
             if (other.gameObject.GetComponent<BrickBehavior>().brickteam == playerteam)
