@@ -225,7 +225,7 @@ Transform:
   m_GameObject: {fileID: 7984191642236337377}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 2.02, z: -7.48}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5979287481339979065}
@@ -353,3 +353,4 @@ MonoBehaviour:
   playerteam: 2
   maxstep: 0
   zlimit: 0
+  isBot: 0
