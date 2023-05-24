@@ -4,13 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Brick
-  - Road
-  - Stage
-  - Character
-  - Bridge
-  - Block
-  - Step
+  - EndPoint
   layers:
   - Default
   - TransparentFX
@@ -18,8 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Wall_Step
+  - Bot
   - 
   - 
   - 
