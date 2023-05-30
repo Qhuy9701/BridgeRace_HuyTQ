@@ -1,2 +1,0 @@
-# FinalBridgeRace_HuyTQ
- 
